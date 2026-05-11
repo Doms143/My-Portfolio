@@ -77,37 +77,37 @@ function ProjectCard({ project, index, progress, onOpenModal }: { project: any, 
           className="absolute inset-0 z-0 overflow-hidden cursor-pointer"
           onClick={() => onOpenModal(project)}
         >
-          <div className="absolute top-[35%] md:top-[30%] bottom-[25%] md:bottom-[20%] left-4 md:left-12 right-4 md:right-12 flex items-center justify-center z-0">
+          <div className="absolute top-[25%] md:top-[20%] bottom-[20%] md:bottom-[15%] left-4 md:left-12 right-4 md:right-12 flex items-center justify-center z-10">
             {/* Mockup Container */}
-            <div className="relative w-full h-full max-w-5xl rounded-xl overflow-hidden border border-white/20 bg-black/40 shadow-2xl transition-transform duration-700 group-hover:scale-105 group-hover:-translate-y-4">
+            <div className="relative w-full h-full max-w-6xl rounded-xl overflow-hidden border border-white/20 bg-black/40 shadow-[0_20px_50px_rgba(0,0,0,0.5)] transition-all duration-700 group-hover:scale-105 group-hover:-translate-y-4">
               <motion.img 
                 style={{ y: imgY, scale: 1.05 }}
                 src={project.images[0]} 
                 alt={project.title} 
                 onError={() => setImageError(true)}
-                className="w-full h-full object-contain md:object-cover opacity-80 group-hover:opacity-40 transition-opacity duration-700" 
+                className="w-full h-full object-cover opacity-80 group-hover:opacity-30 transition-opacity duration-700" 
               />
               
               {/* Hover Overlay Message */}
-              <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10">
-                <span className="px-6 py-3 bg-black/60 backdrop-blur-md border border-white/20 text-white font-mono text-sm tracking-widest uppercase rounded-full">
-                  Click to view contents
+              <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500 z-20 translate-y-8 group-hover:translate-y-0">
+                <span className="px-6 py-3 bg-white text-black font-bold text-xs tracking-widest uppercase rounded-full shadow-2xl flex items-center gap-2">
+                  View Project <ArrowUpRight size={16} />
                 </span>
               </div>
             </div>
           </div>
-          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent z-10 pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent z-0 pointer-events-none" />
         </div>
       )}
 
-      <div className="flex justify-between items-start relative z-20 pointer-events-none gap-4">
+      <div className="flex justify-between items-start relative z-0 pointer-events-none gap-4">
         <h3 
           onClick={() => onOpenModal(project)}
-          className="text-3xl md:text-6xl lg:text-7xl font-bold tracking-tighter uppercase leading-none select-none transition-all duration-300 text-transparent [-webkit-text-stroke:1px_rgba(255,255,255,0.2)] group-hover:[-webkit-text-stroke:1px_#ff4d00] group-hover:text-[#ff4d00] max-w-[85%] break-words pointer-events-auto cursor-pointer"
+          className="text-5xl md:text-7xl lg:text-[8rem] font-bold tracking-tighter uppercase leading-[0.8] select-none transition-all duration-300 text-transparent [-webkit-text-stroke:1px_rgba(255,255,255,0.2)] group-hover:[-webkit-text-stroke:1px_#ff4d00] group-hover:text-[#ff4d00] max-w-[85%] break-words pointer-events-auto cursor-pointer"
         >
           {project.title}
         </h3>
-        <span className="text-xl md:text-4xl font-mono text-swiss-gray pointer-events-auto shrink-0">{project.id}</span>
+        <span className="text-2xl md:text-5xl font-mono text-swiss-gray pointer-events-auto shrink-0 z-20">{project.id}</span>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 border-t border-white/20 pt-8 mt-auto relative z-20 pointer-events-none">
