@@ -1,6 +1,7 @@
 import { motion } from "motion/react";
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
+import { Magnetic } from "@/components/ui/Magnetic";
 
 const links = [
   { name: "About", href: "#about" },
@@ -32,31 +33,40 @@ export function Navbar() {
       )}
     >
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
-        <a href="#" className="text-xl font-black tracking-tighter uppercase mix-blend-difference z-10 hover:italic transition-all">
-          Dominic<span className="text-swiss-red">.</span>
-        </a>
+        <Magnetic>
+          <a href="#" className="p-2 -m-2 text-xl font-black tracking-tighter uppercase mix-blend-difference z-10 hover:italic transition-all">
+            Dominic<span className="text-swiss-red">.</span>
+          </a>
+        </Magnetic>
         
         <nav className="hidden md:flex items-center gap-8 mix-blend-difference z-10">
           {links.map((link, i) => (
-            <motion.a
+            <motion.div
               key={link.name}
-              href={link.href}
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: i * 0.1 + 0.3, ease: [0.16, 1, 0.3, 1] }}
-              className="text-[11px] font-semibold tracking-widest uppercase text-white/50 hover:text-white transition-colors"
             >
-              {link.name}
-            </motion.a>
+              <Magnetic>
+                <a
+                  href={link.href}
+                  className="p-2 -m-2 text-[11px] font-semibold tracking-widest uppercase text-white/50 hover:text-white transition-colors"
+                >
+                  {link.name}
+                </a>
+              </Magnetic>
+            </motion.div>
           ))}
         </nav>
         
-        <a
-          href="#contact"
-          className="hidden md:inline-flex items-center justify-center border border-white/20 px-4 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-widest hover:bg-swiss-red hover:text-white transition-colors hover:border-transparent mix-blend-difference z-10"
-        >
-          AVAILABLE RIGHT NOW
-        </a>
+        <Magnetic>
+          <a
+            href="#contact"
+            className="hidden md:inline-flex items-center justify-center border border-white/20 px-4 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-widest hover:bg-swiss-red hover:text-white transition-colors hover:border-transparent mix-blend-difference z-10"
+          >
+            AVAILABLE RIGHT NOW
+          </a>
+        </Magnetic>
       </div>
     </motion.header>
   );

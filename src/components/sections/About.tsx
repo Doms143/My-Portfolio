@@ -14,10 +14,20 @@ export function About() {
     <section id="about" ref={ref} className="py-32 px-6 relative border-t border-white/10">
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-12 lg:gap-24">
-          <div className="md:col-span-4">
-            <h2 className="text-[10px] font-bold uppercase tracking-[0.3em] text-white/40 mb-8">
+          <div className="md:col-span-4 flex flex-col items-start gap-8">
+            <h2 className="text-[10px] font-bold uppercase tracking-[0.3em] text-white/40">
               01 // About Me
             </h2>
+            
+            {/* Profile Picture Container */}
+            <div className="relative w-full max-w-[280px] aspect-[4/5] group overflow-hidden border border-white/10">
+              <div className="absolute inset-0 bg-swiss-red/20 group-hover:bg-transparent transition-colors z-10 duration-500 blend-multiply pointer-events-none" />
+              <img 
+                src="/images/profile.jpg" 
+                alt="Dominic Tacatani" 
+                className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 scale-105 group-hover:scale-100"
+              />
+            </div>
           </div>
           
           <div className="md:col-span-8">

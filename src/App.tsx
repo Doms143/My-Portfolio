@@ -1,4 +1,5 @@
 import { ReactLenis } from 'lenis/react';
+import { motion, useScroll, useSpring } from 'motion/react';
 import { Navbar } from "@/components/sections/Navbar";
 import { Hero } from "@/components/sections/Hero";
 import { About } from "@/components/sections/About";
@@ -10,12 +11,27 @@ import { Services } from "@/components/sections/Services";
 import { Contact } from "@/components/sections/Contact";
 import { Footer } from "@/components/sections/Footer";
 import { CustomCursor } from "@/components/ui/CustomCursor";
+import { Preloader } from "@/components/ui/Preloader";
 
 export default function App() {
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001
+  });
+
   return (
-    <ReactLenis root>
-      <div className="bg-swiss-black min-h-screen text-white font-sans selection:bg-swiss-red selection:text-white relative cursor-none md:cursor-auto">
+    <>
+      <Preloader />
+      <ReactLenis root>
+        <div className="bg-swiss-black min-h-screen text-white font-sans selection:bg-swiss-red selection:text-white relative cursor-none md:cursor-auto">
         <CustomCursor />
+        {/* Scroll Progress Indicator */}
+        <motion.div 
+          className="fixed top-0 left-0 right-0 h-1 bg-swiss-red transform-origin-left z-[100]" 
+          style={{ scaleX, originX: 0 }} 
+        />
         {/* Background Noise Filter */}
         <div 
           className="fixed inset-0 z-50 pointer-events-none opacity-[0.04] mix-blend-screen" 
@@ -45,5 +61,6 @@ export default function App() {
         <Footer />
       </div>
     </ReactLenis>
+    </>
   );
 }
