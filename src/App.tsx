@@ -12,6 +12,7 @@ import { Contact } from "@/components/sections/Contact";
 import { Footer } from "@/components/sections/Footer";
 import { CustomCursor } from "@/components/ui/CustomCursor";
 import { Preloader } from "@/components/ui/Preloader";
+import { FloatingLinks } from "@/components/ui/FloatingLinks";
 
 export default function App() {
   const { scrollYProgress } = useScroll();
@@ -47,6 +48,8 @@ export default function App() {
             <div className="w-px h-full bg-white/[0.03]" />
           </div>
         </div>
+        
+        <FloatingLinks />
         <Navbar />
         <main className="relative z-10">
           <Hero />

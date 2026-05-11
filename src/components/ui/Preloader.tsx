@@ -50,7 +50,7 @@ export function Preloader() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.4 }}
-            className="absolute bottom-4 left-1/2 -translate-x-1/2 text-xs font-mono text-white/50 tracking-widest uppercase"
+            className="absolute bottom-4 md:bottom-8 left-1/2 -translate-x-1/2 text-4xl md:text-6xl font-black font-mono text-white/80 tracking-widest uppercase"
           >
             {progress}%
           </motion.div>

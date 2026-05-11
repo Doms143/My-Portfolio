@@ -27,7 +27,7 @@ export function Experience() {
   const isInView = useInView(ref, { once: false, margin: "-100px" });
 
   return (
-    <section id="experience" className="py-32 px-6 border-t border-white/10">
+    <section id="experience" className="py-32 px-6 border-t border-white/10 bg-swiss-black relative z-10">
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-12 lg:gap-24 mb-16">
           <div className="md:col-span-4">

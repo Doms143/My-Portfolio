@@ -1,7 +1,33 @@
 import { motion } from "motion/react";
 import { Magnetic } from "@/components/ui/Magnetic";
+import { useState } from "react";
 
 export function Contact() {
+  const [formState, setFormState] = useState<"idle" | "submitting" | "success">("idle");
+  const [formData, setFormData] = useState({ name: "", email: "", message: "" });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData(prev => ({ ...prev, [e.target.id]: e.target.value }));
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!formData.name || !formData.email || !formData.message) return;
+    
+    setFormState("submitting");
+    
+    // Simulate network request
+    setTimeout(() => {
+      setFormState("success");
+      setFormData({ name: "", email: "", message: "" });
+      
+      // Reset after showing success for a while
+      setTimeout(() => {
+        setFormState("idle");
+      }, 3000);
+    }, 1500);
+  };
+
   return (
     <section id="contact" className="py-32 px-6 relative overflow-hidden bg-swiss-black">
       {/* Background Graphic */}
@@ -49,54 +75,76 @@ export function Contact() {
           
           <div className="lg:col-span-8">
             <motion.form 
+              onSubmit={handleSubmit}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: false }}
               className="space-y-8"
             >
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div className="space-y-2">
+                <div className="space-y-2 relative">
                   <label htmlFor="name" className="text-[10px] font-bold uppercase tracking-widest text-white/40">Name</label>
                   <input 
                     type="text" 
                     id="name"
-                    className="w-full bg-transparent border-b border-white/20 py-4 text-white focus:outline-none focus:border-swiss-red transition-colors rounded-none placeholder:text-white/20 font-medium"
+                    required
+                    value={formData.name}
+                    onChange={handleChange}
+                    disabled={formState !== "idle"}
+                    className="w-full bg-transparent border-b border-white/20 py-4 text-white focus:outline-none focus:border-swiss-red transition-all duration-300 rounded-none placeholder:text-white/20 font-medium disabled:opacity-50"
                     placeholder="John Doe"
                   />
+                  <div className="absolute bottom-0 left-0 h-[1px] bg-swiss-red w-0 transition-all duration-500 peer-focus:w-full" />
                 </div>
-                <div className="space-y-2">
+                <div className="space-y-2 relative">
                   <label htmlFor="email" className="text-[10px] font-bold uppercase tracking-widest text-white/40">Email</label>
                   <input 
                     type="email" 
                     id="email"
-                    className="w-full bg-transparent border-b border-white/20 py-4 text-white focus:outline-none focus:border-swiss-red transition-colors rounded-none placeholder:text-white/20 font-medium"
+                    required
+                    value={formData.email}
+                    onChange={handleChange}
+                    disabled={formState !== "idle"}
+                    className="w-full bg-transparent border-b border-white/20 py-4 text-white focus:outline-none focus:border-swiss-red transition-all duration-300 rounded-none placeholder:text-white/20 font-medium disabled:opacity-50 peer"
                     placeholder="john@example.com"
                   />
+                  <div className="absolute bottom-0 left-0 h-[1px] bg-swiss-red w-0 transition-all duration-500 peer-focus:w-full" />
                 </div>
               </div>
               
-              <div className="space-y-2">
+              <div className="space-y-2 relative">
                 <label htmlFor="message" className="text-[10px] font-bold uppercase tracking-widest text-white/40">Message</label>
                 <textarea 
                   id="message"
+                  required
+                  value={formData.message}
+                  onChange={handleChange}
+                  disabled={formState !== "idle"}
                   rows={4}
-                  className="w-full bg-transparent border-b border-white/20 py-4 text-white focus:outline-none focus:border-swiss-red transition-colors resize-none rounded-none placeholder:text-white/20 font-medium"
+                  className="w-full bg-transparent border-b border-white/20 py-4 text-white focus:outline-none focus:border-swiss-red transition-all duration-300 resize-none rounded-none placeholder:text-white/20 font-medium disabled:opacity-50 peer"
                   placeholder="Tell me about your project..."
                 />
+                <div className="absolute bottom-0 left-0 h-[1px] bg-swiss-red w-0 transition-all duration-500 peer-focus:w-full" />
               </div>
               
               <div className="pt-4 flex flex-col sm:flex-row justify-between items-start sm:items-end gap-8">
                 <Magnetic>
                   <button 
-                    type="button" 
-                    className="bg-white text-[#0a0a0a] px-8 py-4 text-[10px] font-black uppercase tracking-widest hover:bg-swiss-red hover:text-white transition-colors"
+                    type="submit" 
+                    disabled={formState !== "idle"}
+                    className="relative overflow-hidden bg-white text-[#0a0a0a] px-8 py-4 text-[10px] font-black uppercase tracking-widest hover:bg-swiss-red hover:text-white transition-colors group disabled:cursor-not-allowed disabled:bg-white/10 disabled:text-white/40"
                   >
-                    Send Message
+                    <span className={`block transition-transform duration-500 ${formState === "submitting" ? "-translate-y-[150%]" : "translate-y-0"}`}>
+                      {formState === "success" ? "Message Sent" : "Send Message"}
+                    </span>
+                    <span className={`absolute inset-0 flex items-center justify-center transition-transform duration-500 ${formState === "submitting" ? "translate-y-0" : "translate-y-[150%]"}`}>
+                      Sending...
+                    </span>
                   </button>
                 </Magnetic>
                 <a href="#" className="flex gap-2 items-center text-[10px] font-bold uppercase tracking-widest text-white/40 hover:text-white transition-colors group">
                   Resume PDF (2.4mb)
-                  <span className="group-hover:animate-bounce">â</span>
+                  <span className="group-hover:animate-bounce">↓</span>
                 </a>
               </div>
             </motion.form>

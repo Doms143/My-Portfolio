@@ -52,20 +52,38 @@ export function Hero() {
               <motion.h1 
                 initial={{ y: "100%" }}
                 animate={{ y: 0 }}
-                transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-                className="whitespace-nowrap pr-4 text-[18vw] md:text-[14vw] lg:text-[13vw] xl:text-[160px] leading-[0.85] font-black tracking-tighter uppercase italic"
+                transition={{ duration: 1, delay: 2.2, ease: [0.16, 1, 0.3, 1] }}
+                className="whitespace-nowrap pr-4 text-[18vw] md:text-[14vw] lg:text-[13vw] xl:text-[160px] leading-[0.85] font-black tracking-tighter uppercase italic group cursor-default flex"
               >
-                Dominic
+                {"Dominic".split("").map((char, i) => (
+                  <span 
+                    key={i} 
+                    className="inline-block transition-transform duration-300 group-hover:-translate-y-4 group-hover:text-transparent group-hover:text-stroke hover:!translate-y-0 hover:!text-white hover:!text-stroke-0"
+                    style={{ transitionDelay: `${i * 30}ms` }}
+                  >
+                    {char}
+                  </span>
+                ))}
               </motion.h1>
             </div>
             <div className="overflow-hidden">
               <motion.h1 
                 initial={{ y: "100%" }}
                 animate={{ y: 0 }}
-                transition={{ duration: 1, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-                className="whitespace-nowrap pr-4 text-[18vw] md:text-[14vw] lg:text-[13vw] xl:text-[160px] leading-[0.85] font-black tracking-tighter uppercase italic text-swiss-red flex items-center gap-4"
+                transition={{ duration: 1, delay: 2.3, ease: [0.16, 1, 0.3, 1] }}
+                className="whitespace-nowrap pr-4 text-[18vw] md:text-[14vw] lg:text-[13vw] xl:text-[160px] leading-[0.85] font-black tracking-tighter uppercase italic text-swiss-red flex items-center gap-4 group cursor-default"
               >
-                Tacatani.
+                <div className="flex">
+                  {"Tacatani.".split("").map((char, i) => (
+                    <span 
+                      key={i} 
+                      className="inline-block transition-transform duration-300 group-hover:-translate-y-4 hover:!translate-y-0 hover:!text-white"
+                      style={{ transitionDelay: `${i * 30}ms` }}
+                    >
+                      {char}
+                    </span>
+                  ))}
+                </div>
               </motion.h1>
             </div>
           </div>
@@ -74,7 +92,7 @@ export function Hero() {
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ duration: 1, delay: 0.8 }}
+              transition={{ duration: 1, delay: 2.8 }}
             >
               <h2 className="text-white/80 font-bold uppercase tracking-widest text-xs mb-4">Software Developer.</h2>
               <p className="text-swiss-gray text-sm md:text-base font-medium uppercase tracking-widest inline-block">
@@ -85,7 +103,7 @@ export function Hero() {
             <motion.div 
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ duration: 1, delay: 1 }}
+              transition={{ duration: 1, delay: 3.0 }}
               className="md:mt-12 flex flex-col gap-8"
             >
               <div className="flex items-center gap-4 text-xs font-bold uppercase tracking-widest text-swiss-gray">
@@ -101,15 +119,24 @@ export function Hero() {
               </div>
 
               <div className="flex justify-between items-end border-t border-white/10 pt-4">
-                <div>
-                  <h4 className="text-[9px] uppercase tracking-[0.2em] font-bold text-white/40 mb-1">Local Time</h4>
-                  <p className="font-mono text-xs tracking-widest text-[#f2f2f2]">{time} PHT</p>
+                <div className="flex gap-12">
+                  <div>
+                    <h4 className="text-[9px] uppercase tracking-[0.2em] font-bold text-white/40 mb-1">Location</h4>
+                    <p className="font-mono text-xs tracking-widest text-[#f2f2f2] flex items-center gap-1.5 hover:text-swiss-red transition-colors cursor-default">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                      Cebu, PH
+                    </p>
+                  </div>
+                  <div>
+                    <h4 className="text-[9px] uppercase tracking-[0.2em] font-bold text-white/40 mb-1">Local Time</h4>
+                    <p className="font-mono text-xs tracking-widest text-[#f2f2f2]">{time} PHT</p>
+                  </div>
                 </div>
                 <div className="text-right">
                   <h4 className="text-[9px] uppercase tracking-[0.2em] font-bold text-white/40 mb-1">Status</h4>
-                  <p className="font-mono text-xs tracking-widest text-[#f2f2f2] flex items-center gap-2">
+                  <p className="font-mono text-xs tracking-widest text-[#f2f2f2] flex items-center gap-2 bg-white/5 px-2 py-1 rounded-sm border border-white/10">
                     <span className="w-1.5 h-1.5 rounded-full bg-swiss-red animate-pulse block"></span>
-                    ONLINE
+                    AVAILABLE FOR WORK
                   </p>
                 </div>
               </div>

@@ -13,35 +13,56 @@ const projects = [
   // -------------------------------------------------------------
   {
     id: "01",
-    title: "Omni.System",
-    category: "Financial Dashboard",
-    tech: ["React", "TypeScript", "D3.js", "Node.js"],
+    title: "AccessLaw",
+    category: "Capstone Project",
+    tech: ["React", "Node.js", "MongoDB", "Express"],
     year: "2023",
     color: "bg-zinc-900",
-    images: ["/images/projects/demo-1.png", "/images/projects/demo-2.png"],
+    images: ["/images/projects/accesslaw-1.png", "/images/projects/accesslaw-2.png"],
     link: "https://example.com"
   },
   {
     id: "02",
-    title: "Neuro/Net",
-    category: "Machine Learning UI",
-    tech: ["Next.js", "Python", "Tailwind", "Framer Motion"],
+    title: "Lifewood",
+    category: "Web Development",
+    tech: ["Next.js", "TypeScript", "TailwindCSS"],
     year: "2024",
     color: "bg-[#111]",
+    images: ["/images/projects/lifewood-1.png", "/images/projects/lifewood-2.png"],
   },
   {
     id: "03",
-    title: "Basel E-Commerce",
-    category: "Retail Platform",
-    tech: ["Shopify", "React", "GraphQL", "Redis"],
+    title: "FAINANCE",
+    category: "AI Agent for Lifewood",
+    tech: ["Python", "React", "OpenAI API"],
     year: "2024",
     color: "bg-zinc-950",
+    images: ["/images/projects/fainance-1.png", "/images/projects/fainance-2.png"],
+  },
+  {
+    id: "04",
+    title: "Behind You",
+    category: "Game Development",
+    tech: ["Unity", "C#", "Blender"],
+    year: "2025",
+    color: "bg-zinc-900",
+    images: ["/images/projects/behind-you-1.png", "/images/projects/behind-you-2.png"],
+  },
+  {
+    id: "05",
+    title: "A&M Online Grocery Store",
+    category: "Online Grocery Ordering Website",
+    tech: ["React", "Node.js", "PostgreSQL"],
+    year: "2025",
+    color: "bg-[#050505]",
+    images: ["/images/projects/am-grocery-1.png", "/images/projects/am-grocery-2.png"],
   },
 ];
 
 function ProjectCard({ project, index, progress }: { project: any, index: number, progress: any }) {
   const y = useTransform(progress, [0, 1], [0, -50 * index]);
-  const scale = useTransform(progress, [index * 0.25, 1], [1, 0.95]);
+  const scale = useTransform(progress, [index * 0.2, 1], [1, 1 - index * 0.02]);
+  const imgY = useTransform(progress, [0, 1], ["-10%", "10%"]);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   const nextImage = (e: React.MouseEvent) => {
@@ -62,12 +83,13 @@ function ProjectCard({ project, index, progress }: { project: any, index: number
 
   return (
     <motion.div
-      style={{ y, scale, top: `calc(10vh + ${index * 60}px)` }}
-      className={`sticky w-full h-[70vh] md:h-[80vh] ${project.color} border border-white/10 p-8 md:p-16 flex flex-col justify-between origin-top group backdrop-blur-md overflow-hidden`}
+      style={{ y, scale, top: `calc(5vh + ${index * 40}px)` }}
+      className={`sticky w-full h-[75vh] md:h-[75vh] ${project.color} border border-white/10 p-8 md:p-12 flex flex-col justify-between origin-top group backdrop-blur-md overflow-hidden`}
     >
       {hasImages && (
-        <div className="absolute inset-0 z-0">
-          <img 
+        <div className="absolute inset-0 z-0 overflow-hidden">
+          <motion.img 
+            style={{ y: imgY, scale: 1.2 }}
             src={project.images[currentImageIndex]} 
             alt={project.title} 
             className="w-full h-full object-cover opacity-20 group-hover:opacity-60 transition-opacity duration-700" 
@@ -92,11 +114,11 @@ function ProjectCard({ project, index, progress }: { project: any, index: number
         </div>
       )}
 
-      <div className="flex justify-between items-start relative z-20 pointer-events-none">
-        <h3 className="text-4xl md:text-8xl font-bold tracking-tighter uppercase leading-none select-none transition-colors group-hover:text-white text-stroke text-stroke-hover">
+      <div className="flex justify-between items-start relative z-20 pointer-events-none gap-4">
+        <h3 className="text-3xl md:text-6xl lg:text-7xl font-bold tracking-tighter uppercase leading-none select-none transition-colors group-hover:text-white text-stroke text-stroke-hover max-w-[85%] break-words">
           {project.title}
         </h3>
-        <span className="text-2xl md:text-4xl font-mono text-swiss-gray pointer-events-auto">{project.id}</span>
+        <span className="text-xl md:text-4xl font-mono text-swiss-gray pointer-events-auto shrink-0">{project.id}</span>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 border-t border-white/20 pt-8 mt-auto relative z-20 pointer-events-none">
@@ -154,7 +176,7 @@ export function Projects() {
         </h2>
       </div>
 
-      <div ref={containerRef} className="pb-32 px-4 md:px-12 relative" style={{ height: "300vh" }}>
+      <div ref={containerRef} className="pb-32 px-4 md:px-12 relative">
         {projects.map((project, index) => (
           <ProjectCard 
             key={project.id} 
