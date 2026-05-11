@@ -118,7 +118,7 @@ export function Hero() {
                 </motion.div>
               </div>
 
-              <div className="flex justify-between items-end border-t border-white/10 pt-4">
+                <div className="flex justify-between items-end border-t border-white/10 pt-4">
                 <div className="flex gap-12">
                   <div>
                     <h4 className="text-[9px] uppercase tracking-[0.2em] font-bold text-white/40 mb-1">Location</h4>
@@ -132,12 +132,22 @@ export function Hero() {
                     <p className="font-mono text-xs tracking-widest text-[#f2f2f2]">{time} PHT</p>
                   </div>
                 </div>
-                <div className="text-right">
-                  <h4 className="text-[9px] uppercase tracking-[0.2em] font-bold text-white/40 mb-1">Status</h4>
-                  <p className="font-mono text-xs tracking-widest text-[#f2f2f2] flex items-center gap-2 bg-white/5 px-2 py-1 rounded-sm border border-white/10">
-                    <span className="w-1.5 h-1.5 rounded-full bg-swiss-red animate-pulse block"></span>
-                    AVAILABLE FOR WORK
-                  </p>
+                <div className="text-right flex flex-col gap-4">
+                  <div>
+                    <h4 className="text-[9px] uppercase tracking-[0.2em] font-bold text-white/40 mb-1">Status</h4>
+                    <p className="font-mono text-xs tracking-widest text-[#f2f2f2] flex items-center justify-end gap-2 px-2 py-1">
+                      <span className="w-1.5 h-1.5 rounded-full bg-swiss-red animate-pulse block"></span>
+                      AVAILABLE FOR WORK
+                    </p>
+                  </div>
+                  <a 
+                    href="/resume.pdf" 
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center gap-2 group border border-white/20 bg-white/5 hover:bg-swiss-red hover:border-swiss-red transition-all px-4 py-2 text-[10px] font-bold uppercase tracking-widest text-white"
+                  >
+                    Resume PDF <span className="group-hover:translate-y-0.5 transition-transform">↓</span>
+                  </a>
                 </div>
               </div>
             </motion.div>

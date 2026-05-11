@@ -54,13 +54,7 @@ export function About() {
                 </BlockReveal>
               </div>
 
-              <div className="grid grid-cols-2 gap-8 pt-12 border-t border-white/10">
-                <BlockReveal delay={0.3}>
-                  <div>
-                    <h4 className="text-5xl font-black italic text-white mb-2">05+</h4>
-                    <p className="text-[10px] font-bold uppercase tracking-widest text-swiss-red">Years Experience</p>
-                  </div>
-                </BlockReveal>
+              <div className="grid grid-cols-1 gap-8 pt-12 border-t border-white/10">
                 <BlockReveal delay={0.4}>
                   <div>
                     <h4 className="text-5xl font-black italic text-white mb-2">05</h4>

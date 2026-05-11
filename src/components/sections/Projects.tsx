@@ -16,18 +16,18 @@ const projects = [
     id: "01",
     title: "AccessLaw",
     category: "Capstone Project",
-    tech: ["React", "Node.js", "MongoDB", "Express"],
-    year: "2023",
+    tech: ["PHP", "Laravel", "JavaScript", "TailwindCSS", "Python", "OpenAI", "MySQL"],
+    year: "2025",
     color: "bg-zinc-900",
     images: ["/images/projects/accesslaw-1.png", "/images/projects/accesslaw-2.png", "/images/projects/accesslaw-3.png", "/images/projects/accesslaw-4.png", "/images/projects/accesslaw-5.png"],
-    link: "https://example.com"
+    description: "The study, titled \"ACCESSLAW: An Accessible AI-Powered Legal Counsel for Public Attorneys and Low-Income Citizens in Lapu-Lapu City,\" addresses the lack of accessible legal support by integrating AI chatbot technology, lawyer-client matching, case profiling, and legal document generation into a single web-based platform. The system aims to empower low-income individuals by providing them with accurate and timely legal assistance, while also aiding public attorneys in handling and tracking cases more efficiently.",
   },
   {
     id: "02",
     title: "Lifewood",
     category: "Web Development",
-    tech: ["Next.js", "TypeScript", "TailwindCSS"],
-    year: "2024",
+    tech: ["HTML", "JavaScript", "MySQL", "TailwindCSS"],
+    year: "2026",
     color: "bg-[#111]",
     images: ["/images/projects/lifewood-1.png", "/images/projects/lifewood-2.png"],
   },
@@ -35,8 +35,8 @@ const projects = [
     id: "03",
     title: "FAINANCE",
     category: "AI Agent for Lifewood",
-    tech: ["Python", "React", "OpenAI API"],
-    year: "2024",
+    tech: ["Python", "JavaScript", "CSS", "TypeScript"],
+    year: "2026",
     color: "bg-zinc-950",
     images: ["/images/projects/fainance-1.png", "/images/projects/fainance-2.png"],
   },
@@ -44,8 +44,8 @@ const projects = [
     id: "04",
     title: "Behind You",
     category: "Game Development",
-    tech: ["Unity", "C#", "Blender"],
-    year: "2025",
+    tech: ["C#", "Unity"],
+    year: "2026",
     color: "bg-zinc-900",
     images: ["/images/projects/behind-you-1.png", "/images/projects/behind-you-2.png"],
   },
@@ -53,10 +53,11 @@ const projects = [
     id: "05",
     title: "A&M Online Grocery Store",
     category: "Online Grocery Ordering Website",
-    tech: ["React", "Node.js", "PostgreSQL"],
-    year: "2025",
+    tech: ["JavaScript", "Python", "HTML", "CSS"],
+    year: "2026",
     color: "bg-[#050505]",
     images: ["/images/projects/am-grocery-1.png", "/images/projects/am-grocery-2.png"],
+    link: "https://a-m-market.vercel.app/",
   },
 ];
 
@@ -131,22 +132,15 @@ function ProjectCard({ project, index, progress, onOpenModal }: { project: any, 
             <h4 className="text-[10px] uppercase tracking-[0.2em] text-white/40 mb-2">Year</h4>
             <p className="font-mono text-lg text-white/40">{project.year}</p>
           </div>
-          {project.link ? (
+          {project.link && (
             <a 
               href={project.link} 
               target="_blank" 
               rel="noreferrer"
               className="flex items-center gap-2 mt-4 md:mt-0 text-[10px] font-bold uppercase tracking-widest hover:text-swiss-red transition-colors text-[#f2f2f2]"
             >
-              View Site <ArrowUpRight size={14} strokeWidth={2} />
+              Visit Site <ArrowUpRight size={14} strokeWidth={2} />
             </a>
-          ) : (
-            <button 
-              onClick={() => onOpenModal(project)}
-              className="flex items-center gap-2 mt-4 md:mt-0 text-[10px] font-bold uppercase tracking-widest hover:text-swiss-red transition-colors text-[#f2f2f2]"
-            >
-              View Case <ArrowUpRight size={14} strokeWidth={2} />
-            </button>
           )}
         </div>
       </div>
@@ -215,13 +209,13 @@ function ProjectModal({ project, onClose }: { project: any, onClose: () => void 
                 <>
                   <button 
                     onClick={prevImage}
-                    className="absolute left-6 top-1/2 -translate-y-1/2 p-3 bg-white/10 hover:bg-white hover:text-black text-white rounded-full transition-all duration-300 opacity-0 group-hover:opacity-100 z-20"
+                    className="absolute left-6 top-1/2 -translate-y-1/2 p-3 bg-black/50 hover:bg-swiss-red text-white border border-white/10 rounded-full transition-all duration-300 opacity-0 group-hover:opacity-100 z-20 backdrop-blur-sm shadow-xl"
                   >
                     <ChevronLeft size={24} />
                   </button>
                   <button 
                     onClick={nextImage}
-                    className="absolute right-6 top-1/2 -translate-y-1/2 p-3 bg-white/10 hover:bg-white hover:text-black text-white rounded-full transition-all duration-300 opacity-0 group-hover:opacity-100 z-20"
+                    className="absolute right-6 top-1/2 -translate-y-1/2 p-3 bg-black/50 hover:bg-swiss-red text-white border border-white/10 rounded-full transition-all duration-300 opacity-0 group-hover:opacity-100 z-20 backdrop-blur-sm shadow-xl"
                   >
                     <ChevronRight size={24} />
                   </button>
@@ -258,11 +252,10 @@ function ProjectModal({ project, onClose }: { project: any, onClose: () => void 
             </div>
           </div>
 
-          <p className="text-white/70 leading-relaxed mb-auto">
-            {/* Adding some placeholder descriptive text since we don't have detailed descriptions in our project data yet */}
-            A detailed look into {project.title}, exploring its design, development process, and architecture. This project showcases modern web development techniques and problem-solving skills to build scalable, responsive applications.
+          <p className="text-white/70 leading-relaxed mb-auto text-sm">
+            {project.description || `A detailed look into ${project.title}, exploring its design, development process, and architecture. This project showcases modern web development techniques and problem-solving skills to build scalable, responsive applications.`}
           </p>
-
+          
           {project.link && (
             <a 
               href={project.link}
