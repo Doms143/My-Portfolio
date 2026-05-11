@@ -62,7 +62,7 @@ const projects = [
 function ProjectCard({ project, index, progress }: { project: any, index: number, progress: any }) {
   const y = useTransform(progress, [0, 1], [0, -50 * index]);
   const scale = useTransform(progress, [index * 0.2, 1], [1, 1 - index * 0.02]);
-  const imgY = useTransform(progress, [0, 1], ["-10%", "10%"]);
+  const imgY = useTransform(progress, [0, 1], ["-5%", "5%"]);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   const nextImage = (e: React.MouseEvent) => {
@@ -87,12 +87,12 @@ function ProjectCard({ project, index, progress }: { project: any, index: number
       className={`sticky w-full h-[75vh] md:h-[75vh] ${project.color} border border-white/10 p-8 md:p-12 flex flex-col justify-between origin-top group backdrop-blur-md overflow-hidden`}
     >
       {hasImages && (
-        <div className="absolute inset-0 z-0 overflow-hidden">
+        <div className="absolute inset-0 z-0 overflow-hidden flex items-center justify-center p-4 md:p-12">
           <motion.img 
-            style={{ y: imgY, scale: 1.2 }}
+            style={{ y: imgY, scale: 1.05 }}
             src={project.images[currentImageIndex]} 
             alt={project.title} 
-            className="w-full h-full object-cover opacity-20 group-hover:opacity-60 transition-opacity duration-700" 
+            className="w-full h-full object-contain opacity-20 group-hover:opacity-60 transition-opacity duration-700" 
           />
           {project.images.length > 1 && (
             <>
@@ -110,7 +110,7 @@ function ProjectCard({ project, index, progress }: { project: any, index: number
               </button>
             </>
           )}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent z-10" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent z-10 pointer-events-none" />
         </div>
       )}
 

@@ -3,22 +3,22 @@ import { useRef } from "react";
 
 const experience = [
   {
-    role: "Senior Software Engineer",
-    company: "Acme Corp.",
-    period: "2022 - Present",
-    desc: "Architecting high-scale frontend systems and micro-frontends using React and Next.js. Led a team of 5 engineers to redesign the entire customer portal.",
+    role: "Software Developer",
+    company: "Freelance",
+    period: "2025 - Present",
+    desc: "Developing custom web applications for independent clients. Engineered a comprehensive online grocery ordering system, managing both the frontend and backend architectures using React, Node.js, and PostgreSQL.",
+  },
+  {
+    role: "Frontend Developer",
+    company: "Independent Projects",
+    period: "2025 - Present",
+    desc: "Specialized in building performant, responsive web interfaces via Next.js and Tailwind CSS (e.g., Lifewood). Explored modern AI capabilities, integrating OpenAI's API into custom agents.",
   },
   {
     role: "Full Stack Developer",
-    company: "Nexus Dynamics",
-    period: "2019 - 2022",
-    desc: "Built full-stack solutions using Node.js and React. Transitioned the legacy monolithic architecture into a scalable containerized microservices infrastructure.",
-  },
-  {
-    role: "Frontend Engineer",
-    company: "Creative Studio Alpha",
-    period: "2017 - 2019",
-    desc: "Focused on intense, animation-heavy marketing sites and e-commerce platforms. Mastered performant CSS and JavaScript animations.",
+    company: "Academic & Capstone",
+    period: "2025 - Present",
+    desc: "Architected AccessLaw using the MERN stack as a capstone project. In addition, designed and developed interactive 3D games using Unity and C#.",
   },
 ];
 
