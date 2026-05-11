@@ -100,10 +100,10 @@ function ProjectCard({ project, index, progress, onOpenModal }: { project: any, 
         </div>
       )}
 
-      <div className="flex justify-between items-start relative z-0 pointer-events-none gap-4">
+      <div className="flex justify-between items-start relative z-20 pointer-events-none gap-4">
         <h3 
           onClick={() => onOpenModal(project)}
-          className="text-5xl md:text-7xl lg:text-[8rem] font-bold tracking-tighter uppercase leading-[0.8] select-none transition-all duration-300 text-transparent [-webkit-text-stroke:1px_rgba(255,255,255,0.2)] group-hover:[-webkit-text-stroke:1px_#ff4d00] group-hover:text-[#ff4d00] max-w-[85%] break-words pointer-events-auto cursor-pointer"
+          className="text-3xl md:text-5xl lg:text-7xl font-bold tracking-tighter uppercase leading-none select-none transition-all duration-300 text-transparent [-webkit-text-stroke:1px_rgba(255,255,255,0.2)] group-hover:[-webkit-text-stroke:1px_#ff4d00] group-hover:text-[#ff4d00] max-w-[85%] break-words pointer-events-auto cursor-pointer"
         >
           {project.title}
         </h3>
