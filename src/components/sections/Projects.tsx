@@ -1,6 +1,7 @@
 import { AnimatePresence, motion, useScroll, useTransform } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import { ArrowUpRight, ChevronLeft, ChevronRight, X } from "lucide-react";
+import { createPortal } from "react-dom";
 
 const projects = [
   // -------------------------------------------------------------
@@ -77,7 +78,7 @@ function ProjectCard({ project, index, progress, onOpenModal }: { project: any, 
           className="absolute inset-0 z-0 overflow-hidden cursor-pointer"
           onClick={() => onOpenModal(project)}
         >
-          <div className="absolute top-[25%] md:top-[20%] bottom-[20%] md:bottom-[15%] left-4 md:left-12 right-4 md:right-12 flex items-center justify-center z-10">
+          <div className="absolute top-[22%] md:top-[18%] bottom-[28%] md:bottom-[25%] left-4 md:left-12 right-4 md:right-12 flex items-center justify-center z-10">
             {/* Mockup Container */}
             <div className="relative w-full h-full max-w-6xl rounded-xl overflow-hidden border border-white/20 bg-black/40 shadow-[0_20px_50px_rgba(0,0,0,0.5)] transition-all duration-700 group-hover:scale-105 group-hover:-translate-y-4">
               <motion.img 
@@ -178,13 +179,13 @@ function ProjectModal({ project, onClose }: { project: any, onClose: () => void 
     }
   };
 
-  return (
+  return createPortal(
     <motion.div 
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       onClick={onClose}
-      className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 backdrop-blur-xl p-4 md:p-12"
+      className="fixed inset-0 z-[999] flex items-center justify-center bg-black/90 backdrop-blur-xl p-4 md:p-12"
     >
       <button 
         onClick={onClose}
@@ -274,7 +275,8 @@ function ProjectModal({ project, onClose }: { project: any, onClose: () => void 
           )}
         </div>
       </div>
-    </motion.div>
+    </motion.div>,
+    document.body
   );
 }
 
