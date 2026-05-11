@@ -18,7 +18,7 @@ const projects = [
     tech: ["React", "Node.js", "MongoDB", "Express"],
     year: "2023",
     color: "bg-zinc-900",
-    images: ["/images/projects/accesslaw-1.png", "/images/projects/accesslaw-2.png"],
+    images: ["/images/projects/accesslaw-1.png", "/images/projects/accesslaw-2.png", "/images/projects/accesslaw-3.png", "/images/projects/accesslaw-4.png", "/images/projects/accesslaw-5.png"],
     link: "https://example.com"
   },
   {
