@@ -22,14 +22,13 @@ export function About() {
             </h2>
             
             {/* Profile Picture Container */}
-            <div className="relative w-full max-w-[280px] aspect-[4/5] group overflow-hidden border border-white/10">
-              <div className="absolute inset-0 bg-swiss-red/20 group-hover:bg-transparent transition-colors z-10 duration-500 blend-multiply pointer-events-none" />
+            <div className="relative w-full max-w-[280px] aspect-[4/5] overflow-hidden border border-white/10">
               <motion.img 
                 loading="lazy"
                 style={{ y: imgY, scale: 1.2 }}
                 src="/images/profile.png" 
                 alt="Dominic Tacatani" 
-                className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 origin-center"
+                className="w-full h-full object-cover transition-all duration-700 origin-center"
               />
             </div>
           </div>

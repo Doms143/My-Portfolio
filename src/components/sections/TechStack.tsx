@@ -1,5 +1,32 @@
 import { motion, useInView } from "motion/react";
-import { useRef } from "react";
+import { useRef, type ReactNode } from "react";
+import {
+  SiReact, SiNextdotjs, SiTypescript, SiTailwindcss, SiFramer, SiThreedotjs,
+  SiNodedotjs, SiExpress, SiPostgresql, SiMongodb, SiRedis, SiGraphql,
+  SiDocker, SiKubernetes, SiGithubactions, SiVercel, SiLinux,
+} from "react-icons/si";
+import { FaAws } from "react-icons/fa";
+
+const iconMap: Record<string, ReactNode> = {
+  "React": <SiReact size={18} />,
+  "Next.js": <SiNextdotjs size={18} />,
+  "TypeScript": <SiTypescript size={18} />,
+  "Tailwind CSS": <SiTailwindcss size={18} />,
+  "Framer Motion": <SiFramer size={18} />,
+  "WebGL / Three.js": <SiThreedotjs size={18} />,
+  "Node.js": <SiNodedotjs size={18} />,
+  "Express": <SiExpress size={18} />,
+  "PostgreSQL": <SiPostgresql size={18} />,
+  "MongoDB": <SiMongodb size={18} />,
+  "Redis": <SiRedis size={18} />,
+  "GraphQL": <SiGraphql size={18} />,
+  "Docker": <SiDocker size={18} />,
+  "Kubernetes": <SiKubernetes size={18} />,
+  "AWS": <FaAws size={18} />,
+  "CI/CD Actions": <SiGithubactions size={18} />,
+  "Vercel": <SiVercel size={18} />,
+  "Linux": <SiLinux size={18} />,
+};
 
 const stack = [
   {
@@ -54,10 +81,12 @@ export function TechStack() {
                     initial={{ opacity: 0, x: -20 }}
                     animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
                     transition={{ duration: 0.5, delay: groupIndex * 0.2 + skillIndex * 0.1 }}
-                    className="group flex items-center gap-4 cursor-crosshair text-white/70 hover:text-white transition-colors"
+                    className="group flex items-center gap-3 cursor-crosshair text-white/70 hover:text-white transition-colors"
                   >
-                    <span className="w-1.5 h-1.5 rounded-full bg-swiss-red opacity-0 group-hover:opacity-100 transition-opacity" />
-                    <span className="group-hover:translate-x-2 transition-transform duration-300">
+                    <span className="text-white/40 group-hover:text-swiss-red transition-colors shrink-0">
+                      {iconMap[skill] ?? null}
+                    </span>
+                    <span className="group-hover:translate-x-1 transition-transform duration-300">
                       {skill}
                     </span>
                   </motion.li>

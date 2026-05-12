@@ -3,6 +3,44 @@ import { useEffect, useRef, useState } from "react";
 import React from "react";
 import { ArrowUpRight, ChevronLeft, ChevronRight, X } from "lucide-react";
 import { createPortal } from "react-dom";
+import {
+  SiReact, SiNextdotjs, SiTypescript, SiTailwindcss, SiNodedotjs,
+  SiExpress, SiPostgresql, SiMongodb, SiRedis, SiGraphql,
+  SiDocker, SiKubernetes, SiGithubactions, SiVercel, SiLinux,
+  SiPhp, SiLaravel, SiPython, SiOpenai, SiMysql, SiHtml5, SiJavascript,
+  SiUnity, SiSharp,
+} from "react-icons/si";
+import { FaAws, FaCss3Alt } from "react-icons/fa";
+
+const techIconMap: Record<string, React.ReactNode> = {
+  "React": <SiReact size={14} />,
+  "Next.js": <SiNextdotjs size={14} />,
+  "TypeScript": <SiTypescript size={14} />,
+  "TailwindCSS": <SiTailwindcss size={14} />,
+  "Tailwind CSS": <SiTailwindcss size={14} />,
+  "Node.js": <SiNodedotjs size={14} />,
+  "Express": <SiExpress size={14} />,
+  "PostgreSQL": <SiPostgresql size={14} />,
+  "MongoDB": <SiMongodb size={14} />,
+  "Redis": <SiRedis size={14} />,
+  "GraphQL": <SiGraphql size={14} />,
+  "Docker": <SiDocker size={14} />,
+  "Kubernetes": <SiKubernetes size={14} />,
+  "AWS": <FaAws size={14} />,
+  "CI/CD Actions": <SiGithubactions size={14} />,
+  "Vercel": <SiVercel size={14} />,
+  "Linux": <SiLinux size={14} />,
+  "PHP": <SiPhp size={14} />,
+  "Laravel": <SiLaravel size={14} />,
+  "Python": <SiPython size={14} />,
+  "OpenAI": <SiOpenai size={14} />,
+  "MySQL": <SiMysql size={14} />,
+  "HTML": <SiHtml5 size={14} />,
+  "JavaScript": <SiJavascript size={14} />,
+  "CSS": <FaCss3Alt size={14} />,
+  "C#": <SiSharp size={14} />,
+  "Unity": <SiUnity size={14} />,
+};
 
 const projects = [
   // -------------------------------------------------------------
@@ -39,7 +77,8 @@ const projects = [
     tech: ["Python", "JavaScript", "CSS", "TypeScript"],
     year: "2026",
     color: "bg-zinc-950",
-    images: ["/images/projects/fainance-1.png", "/images/projects/fainance-2.png", "/images/projects/fainance-3.png"],
+    images: ["/images/projects/fainance-1.png", "/images/projects/fainance-2.png"],
+    description: "An AI-powered financial assistant agent built for Lifewood, designed to help users track expenses, generate budget insights, and receive personalized financial recommendations through natural language interaction. Integrates machine learning models for predictive analytics and intelligent categorization of transactions.",
   },
   {
     id: "04",
@@ -49,6 +88,7 @@ const projects = [
     year: "2026",
     color: "bg-zinc-900",
     images: ["/images/projects/behind-you-1.png", "/images/projects/behind-you-2.png"],
+    description: "A suspense-driven 3D horror game developed in Unity where the core mechanic revolves around the unsettling feeling that something is always behind you. Features dynamic enemy AI that adapts to player movement, immersive audio design, and a chilling atmospheric environment built with custom shaders and real-time lighting.",
   },
   {
     id: "05",
@@ -59,6 +99,7 @@ const projects = [
     color: "bg-[#050505]",
     images: ["/images/projects/am-grocery-1.png", "/images/projects/am-grocery-2.png"],
     link: "https://a-m-market.vercel.app/",
+    description: "A full-featured online grocery ordering platform that enables users to browse products, manage a shopping cart, and place orders for delivery or pickup. Built with a Python backend for inventory management and order processing, paired with a responsive frontend for a seamless shopping experience across devices.",
   },
 ];
 
@@ -123,7 +164,8 @@ function ProjectCard({ project, index, progress, onOpenModal }: { project: any, 
           <h4 className="text-[10px] uppercase tracking-[0.2em] text-white/40 mb-2">Tech Stack</h4>
           <div className="flex flex-wrap gap-2 text-[11px] text-white/40 leading-snug">
             {project.tech.map((t: string) => (
-              <span key={t} className="px-3 py-1 border border-white/20 rounded-full text-[10px] uppercase tracking-widest text-[#f2f2f2] bg-black/50 backdrop-blur-sm">
+              <span key={t} className="inline-flex items-center gap-1.5 px-3 py-1 border border-white/20 rounded-full text-[10px] uppercase tracking-widest text-[#f2f2f2] bg-black/50 backdrop-blur-sm">
+                {techIconMap[t] ?? null}
                 {t}
               </span>
             ))}
@@ -273,7 +315,8 @@ function ProjectModal({ project, onClose }: { project: any, onClose: () => void 
             <h4 className="text-[10px] uppercase tracking-[0.2em] text-white/40 mb-4">Tech Stack</h4>
             <div className="flex flex-wrap gap-2">
               {project.tech.map((t: string) => (
-                <span key={t} className="px-3 py-1.5 border border-white/20 rounded text-[11px] uppercase tracking-widest text-white bg-white/5">
+                <span key={t} className="inline-flex items-center gap-1.5 px-3 py-1.5 border border-white/20 rounded text-[11px] uppercase tracking-widest text-white bg-white/5">
+                  {techIconMap[t] ?? null}
                   {t}
                 </span>
               ))}
