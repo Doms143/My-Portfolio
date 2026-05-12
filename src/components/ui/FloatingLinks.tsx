@@ -24,18 +24,20 @@ export function FloatingLinks() {
         {socials.map((social) => {
           const Icon = social.icon;
           return (
-            <Magnetic key={social.name}>
-              <a 
-                href={social.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group relative flex h-12 w-12 items-center justify-center rounded-full text-white/60 transition-colors hover:text-white"
-                aria-label={social.name}
-              >
-                <div className="absolute inset-0 rounded-full border border-white/0 transition-all duration-300 group-hover:border-white/20 group-hover:scale-110 bg-white/0 group-hover:bg-white/10" />
-                <Icon size={22} strokeWidth={1.5} className="relative z-10 transition-transform duration-300 group-hover:scale-110" />
-              </a>
-            </Magnetic>
+            <div key={social.name}>
+              <Magnetic>
+                <a 
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group relative flex h-12 w-12 items-center justify-center rounded-full text-white/60 transition-colors hover:text-white"
+                  aria-label={social.name}
+                >
+                  <div className="absolute inset-0 rounded-full border border-white/0 transition-all duration-300 group-hover:border-white/20 group-hover:scale-110 bg-white/0 group-hover:bg-white/10" />
+                  <Icon size={22} strokeWidth={1.5} className="relative z-10 transition-transform duration-300 group-hover:scale-110" />
+                </a>
+              </Magnetic>
+            </div>
           );
         })}
       </div>

@@ -1,32 +1,54 @@
 import { motion } from "motion/react";
 import { Magnetic } from "@/components/ui/Magnetic";
+import { cn } from "@/lib/utils";
 import { useState } from "react";
+import React from "react";
+
+const validateEmail = (email: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
 export function Contact() {
   const [formState, setFormState] = useState<"idle" | "submitting" | "success">("idle");
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
+  const [touched, setTouched] = useState<Record<string, boolean>>({});
+  const [submitAttempted, setSubmitAttempted] = useState(false);
+
+  const errors = {
+    name: !formData.name.trim() ? "Name is required" : "",
+    email: !formData.email.trim() ? "Email is required" : !validateEmail(formData.email) ? "Invalid email format" : "",
+    message: !formData.message.trim() ? "Message is required" : "",
+  };
+
+  const isValid = Object.values(errors).every(e => !e);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData(prev => ({ ...prev, [e.target.id]: e.target.value }));
   };
 
+  const handleBlur = (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setTouched(prev => ({ ...prev, [e.target.id]: true }));
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.name || !formData.email || !formData.message) return;
+    setSubmitAttempted(true);
+    setTouched({ name: true, email: true, message: true });
+    if (!isValid) return;
     
     setFormState("submitting");
     
-    // Simulate network request
     setTimeout(() => {
       setFormState("success");
       setFormData({ name: "", email: "", message: "" });
+      setTouched({});
+      setSubmitAttempted(false);
       
-      // Reset after showing success for a while
       setTimeout(() => {
         setFormState("idle");
       }, 3000);
     }, 1500);
   };
+
+  const showError = (field: string) => (touched[field] || submitAttempted) && errors[field];
 
   return (
     <section id="contact" className="py-32 px-6 relative overflow-hidden bg-swiss-black">
@@ -90,11 +112,16 @@ export function Contact() {
                     required
                     value={formData.name}
                     onChange={handleChange}
+                    onBlur={handleBlur}
                     disabled={formState !== "idle"}
-                    className="w-full bg-transparent border-b border-white/20 py-4 text-white focus:outline-none focus:border-swiss-red transition-all duration-300 rounded-none placeholder:text-white/20 font-medium disabled:opacity-50"
+                    className={cn(
+                      "w-full bg-transparent border-b py-4 text-white focus:outline-none transition-all duration-300 rounded-none placeholder:text-white/20 font-medium disabled:opacity-50",
+                      showError("name") ? "border-swiss-red" : "border-white/20 focus:border-swiss-red"
+                    )}
                     placeholder="John Doe"
                   />
-                  <div className="absolute bottom-0 left-0 h-[1px] bg-swiss-red w-0 transition-all duration-500 peer-focus:w-full" />
+                  <div className={cn("absolute bottom-0 left-0 h-[1px] bg-swiss-red transition-all duration-500", showError("name") ? "w-full" : "w-0 peer-focus:w-full")} />
+                  {showError("name") && <p className="text-swiss-red text-[10px] uppercase tracking-widest font-bold mt-1">{errors.name}</p>}
                 </div>
                 <div className="space-y-2 relative">
                   <label htmlFor="email" className="text-[10px] font-bold uppercase tracking-widest text-white/40">Email</label>
@@ -104,11 +131,16 @@ export function Contact() {
                     required
                     value={formData.email}
                     onChange={handleChange}
+                    onBlur={handleBlur}
                     disabled={formState !== "idle"}
-                    className="w-full bg-transparent border-b border-white/20 py-4 text-white focus:outline-none focus:border-swiss-red transition-all duration-300 rounded-none placeholder:text-white/20 font-medium disabled:opacity-50 peer"
+                    className={cn(
+                      "w-full bg-transparent border-b py-4 text-white focus:outline-none transition-all duration-300 rounded-none placeholder:text-white/20 font-medium disabled:opacity-50 peer",
+                      showError("email") ? "border-swiss-red" : "border-white/20 focus:border-swiss-red"
+                    )}
                     placeholder="john@example.com"
                   />
-                  <div className="absolute bottom-0 left-0 h-[1px] bg-swiss-red w-0 transition-all duration-500 peer-focus:w-full" />
+                  <div className={cn("absolute bottom-0 left-0 h-[1px] bg-swiss-red transition-all duration-500", showError("email") ? "w-full" : "w-0 peer-focus:w-full")} />
+                  {showError("email") && <p className="text-swiss-red text-[10px] uppercase tracking-widest font-bold mt-1">{errors.email}</p>}
                 </div>
               </div>
               
@@ -119,12 +151,17 @@ export function Contact() {
                   required
                   value={formData.message}
                   onChange={handleChange}
+                  onBlur={handleBlur}
                   disabled={formState !== "idle"}
                   rows={4}
-                  className="w-full bg-transparent border-b border-white/20 py-4 text-white focus:outline-none focus:border-swiss-red transition-all duration-300 resize-none rounded-none placeholder:text-white/20 font-medium disabled:opacity-50 peer"
+                  className={cn(
+                    "w-full bg-transparent border-b py-4 text-white focus:outline-none transition-all duration-300 resize-none rounded-none placeholder:text-white/20 font-medium disabled:opacity-50 peer",
+                    showError("message") ? "border-swiss-red" : "border-white/20 focus:border-swiss-red"
+                  )}
                   placeholder="Tell me about your project..."
                 />
-                <div className="absolute bottom-0 left-0 h-[1px] bg-swiss-red w-0 transition-all duration-500 peer-focus:w-full" />
+                <div className={cn("absolute bottom-0 left-0 h-[1px] bg-swiss-red transition-all duration-500", showError("message") ? "w-full" : "w-0 peer-focus:w-full")} />
+                {showError("message") && <p className="text-swiss-red text-[10px] uppercase tracking-widest font-bold mt-1">{errors.message}</p>}
               </div>
               
               <div className="pt-4 flex flex-col sm:flex-row justify-between items-start sm:items-end gap-8">
@@ -142,7 +179,7 @@ export function Contact() {
                     </span>
                   </button>
                 </Magnetic>
-                <a href="#" className="flex gap-2 items-center text-[10px] font-bold uppercase tracking-widest text-white/40 hover:text-white transition-colors group">
+                <a href="/My%20Resume.pdf" target="_blank" rel="noopener noreferrer" className="flex gap-2 items-center text-[10px] font-bold uppercase tracking-widest text-white/40 hover:text-white transition-colors group">
                   Resume PDF (2.4mb)
                   <span className="group-hover:animate-bounce">↓</span>
                 </a>

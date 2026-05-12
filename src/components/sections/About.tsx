@@ -25,6 +25,7 @@ export function About() {
             <div className="relative w-full max-w-[280px] aspect-[4/5] group overflow-hidden border border-white/10">
               <div className="absolute inset-0 bg-swiss-red/20 group-hover:bg-transparent transition-colors z-10 duration-500 blend-multiply pointer-events-none" />
               <motion.img 
+                loading="lazy"
                 style={{ y: imgY, scale: 1.2 }}
                 src="/images/profile.png" 
                 alt="Dominic Tacatani" 

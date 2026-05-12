@@ -5,8 +5,19 @@ export function CustomCursor() {
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
+  const [isMobile, setIsMobile] = useState(true);
 
   useEffect(() => {
+    const mq = window.matchMedia("(max-width: 768px)");
+    setIsMobile(mq.matches);
+    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
+    mq.addEventListener("change", handler);
+    return () => mq.removeEventListener("change", handler);
+  }, []);
+
+  useEffect(() => {
+    if (isMobile) return;
+
     const updateCursor = (e: MouseEvent) => {
       setPosition({ x: e.clientX, y: e.clientY });
       setIsVisible(true);
@@ -40,11 +51,9 @@ export function CustomCursor() {
       window.removeEventListener("mouseout", handleMouseLeave);
       window.removeEventListener("mouseover", handleMouseOver);
     };
-  }, []);
+  }, [isMobile]);
 
-  if (typeof window !== "undefined" && window.matchMedia("(max-width: 768px)").matches) {
-    return null; // Don't show on mobile
-  }
+  if (isMobile) return null;
 
   return (
     <>

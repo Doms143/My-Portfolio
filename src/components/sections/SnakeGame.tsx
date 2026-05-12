@@ -204,7 +204,7 @@ export function SnakeGame() {
     <div className="absolute inset-0 z-0 pointer-events-auto">
       <canvas ref={canvasRef} className="block w-full h-full opacity-[0.25] mix-blend-screen cursor-crosshair" />
       {score > 0 && (
-        <div className="absolute top-24 left-1/2 -translate-x-1/2 md:translate-x-0 md:left-[10%] xl:left-[calc(50%-600px)] pointer-events-none text-white/50 font-mono text-[10px] tracking-widest uppercase">
+        <div className="absolute top-24 left-4 right-4 text-center sm:text-left sm:left-[10%] sm:right-auto xl:left-[calc(50%-600px)] pointer-events-none text-white/50 font-mono text-[10px] tracking-widest uppercase">
           Snake Score // {score.toString().padStart(3, '0')}
         </div>
       )}

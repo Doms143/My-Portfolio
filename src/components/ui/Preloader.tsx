@@ -1,15 +1,44 @@
 import { motion, AnimatePresence, animate } from "motion/react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 export function Preloader() {
   const [isLoading, setIsLoading] = useState(true);
   const [progress, setProgress] = useState(0);
+  const readyRef = useRef(false);
+  const timerRef = useRef<ReturnType<typeof setTimeout>>();
 
   useEffect(() => {
-    // Simple timer to simulate loading or initial animation minimum time
-    const timer = setTimeout(() => {
+    const MIN_DURATION = 2000;
+    const startTime = Date.now();
+
+    const tryFinish = () => {
+      const elapsed = Date.now() - startTime;
+      const remaining = MIN_DURATION - elapsed;
+      if (remaining <= 0) {
+        setIsLoading(false);
+      } else {
+        timerRef.current = setTimeout(() => setIsLoading(false), remaining);
+      }
+    };
+
+    const onPageReady = () => {
+      readyRef.current = true;
+      tryFinish();
+    };
+
+    if (document.readyState === "complete") {
+      onPageReady();
+    } else {
+      window.addEventListener("load", onPageReady);
+    }
+
+    // Fallback – finish after MIN_DURATION regardless
+    timerRef.current = setTimeout(() => {
+      if (!readyRef.current) {
+        readyRef.current = true;
+      }
       setIsLoading(false);
-    }, 2000);
+    }, MIN_DURATION);
 
     const controls = animate(0, 100, {
       duration: 1.8,
@@ -20,7 +49,8 @@ export function Preloader() {
     });
 
     return () => {
-      clearTimeout(timer);
+      window.removeEventListener("load", onPageReady);
+      clearTimeout(timerRef.current);
       controls.stop();
     };
   }, []);

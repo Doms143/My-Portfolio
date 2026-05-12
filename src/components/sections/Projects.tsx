@@ -1,5 +1,6 @@
 import { AnimatePresence, motion, useScroll, useTransform } from "motion/react";
 import { useEffect, useRef, useState } from "react";
+import React from "react";
 import { ArrowUpRight, ChevronLeft, ChevronRight, X } from "lucide-react";
 import { createPortal } from "react-dom";
 
@@ -29,7 +30,7 @@ const projects = [
     tech: ["HTML", "JavaScript", "MySQL", "TailwindCSS"],
     year: "2026",
     color: "bg-[#111]",
-    images: ["/images/projects/lifewood-1.png", "/images/projects/lifewood-2.png"],
+    images: ["/images/projects/lifewood-1.png", "/images/projects/lifewood-2.png", "/images/projects/lifewood-3.png", "/images/projects/lifewood-4.png"],
   },
   {
     id: "03",
@@ -38,7 +39,7 @@ const projects = [
     tech: ["Python", "JavaScript", "CSS", "TypeScript"],
     year: "2026",
     color: "bg-zinc-950",
-    images: ["/images/projects/fainance-1.png", "/images/projects/fainance-2.png"],
+    images: ["/images/projects/fainance-1.png", "/images/projects/fainance-2.png", "/images/projects/fainance-3.png"],
   },
   {
     id: "04",
@@ -83,6 +84,7 @@ function ProjectCard({ project, index, progress, onOpenModal }: { project: any, 
             {/* Mockup Container */}
             <div className="relative w-full h-full max-w-6xl rounded-xl overflow-hidden border border-white/20 bg-black/40 shadow-[0_20px_50px_rgba(0,0,0,0.5)] transition-all duration-700 group-hover:scale-105 group-hover:-translate-y-4">
               <motion.img 
+                loading="lazy"
                 style={{ y: imgY, scale: 1.05 }}
                 src={project.images[0]} 
                 alt={project.title} 
@@ -150,14 +152,38 @@ function ProjectCard({ project, index, progress, onOpenModal }: { project: any, 
 
 function ProjectModal({ project, onClose }: { project: any, onClose: () => void }) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const modalRef = useRef<HTMLDivElement>(null);
 
-  // Lock body scroll when modal is open
   useEffect(() => {
     document.body.style.overflow = "hidden";
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+      if (e.key === "Tab") {
+        const modal = modalRef.current;
+        if (!modal) return;
+        const focusable = modal.querySelectorAll<HTMLElement>(
+          'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), [tabindex]:not([tabindex="-1"])'
+        );
+        if (focusable.length === 0) return;
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
     return () => {
       document.body.style.overflow = "auto";
+      window.removeEventListener("keydown", handleKeyDown);
     };
-  }, []);
+  }, [onClose]);
 
   const nextImage = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -189,6 +215,7 @@ function ProjectModal({ project, onClose }: { project: any, onClose: () => void 
       </button>
 
       <div 
+        ref={modalRef}
         onClick={(e) => e.stopPropagation()}
         className="relative w-full max-w-7xl h-[80vh] flex flex-col md:flex-row bg-[#111] rounded-2xl overflow-hidden border border-white/10 shadow-2xl"
       >
@@ -198,6 +225,7 @@ function ProjectModal({ project, onClose }: { project: any, onClose: () => void 
             <>
               <motion.img 
                 key={currentImageIndex}
+                loading="lazy"
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.5 }}
@@ -292,13 +320,14 @@ export function Projects() {
 
       <div ref={containerRef} className="pb-32 px-4 md:px-12 relative">
         {projects.map((project, index) => (
-          <ProjectCard 
-            key={project.id} 
-            project={project} 
-            index={index} 
-            progress={scrollYProgress}
-            onOpenModal={setSelectedProject}
-          />
+          <div key={project.id}>
+            <ProjectCard 
+              project={project} 
+              index={index} 
+              progress={scrollYProgress}
+              onOpenModal={setSelectedProject}
+            />
+          </div>
         ))}
       </div>
 

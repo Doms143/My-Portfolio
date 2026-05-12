@@ -1,7 +1,8 @@
-import { motion } from "motion/react";
+import { motion, AnimatePresence } from "motion/react";
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { Magnetic } from "@/components/ui/Magnetic";
+import { Menu, X } from "lucide-react";
 
 const links = [
   { name: "About", href: "#about" },
@@ -13,6 +14,7 @@ const links = [
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -21,6 +23,13 @@ export function Navbar() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  useEffect(() => {
+    document.body.style.overflow = mobileOpen ? "hidden" : "";
+    return () => { document.body.style.overflow = ""; };
+  }, [mobileOpen]);
+
+  const closeMobile = () => setMobileOpen(false);
 
   return (
     <motion.header
@@ -38,7 +47,7 @@ export function Navbar() {
             Dominic<span className="text-swiss-red">.</span>
           </a>
         </Magnetic>
-        
+
         <nav className="hidden md:flex items-center gap-8 mix-blend-difference z-10">
           {links.map((link, i) => (
             <motion.div
@@ -58,16 +67,62 @@ export function Navbar() {
             </motion.div>
           ))}
         </nav>
-        
-        <Magnetic>
-          <a
-            href="#contact"
-            className="hidden md:inline-flex items-center justify-center border border-white/20 px-4 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-widest hover:bg-swiss-red hover:text-white transition-colors hover:border-transparent mix-blend-difference z-10"
+
+        <div className="flex items-center gap-4">
+          <Magnetic>
+            <a
+              href="#contact"
+              className="hidden md:inline-flex items-center justify-center border border-white/20 px-4 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-widest hover:bg-swiss-red hover:text-white transition-colors hover:border-transparent mix-blend-difference z-10"
+            >
+              AVAILABLE RIGHT NOW
+            </a>
+          </Magnetic>
+
+          <button
+            onClick={() => setMobileOpen(true)}
+            className="md:hidden p-2 -m-2 text-white mix-blend-difference z-10"
+            aria-label="Open menu"
           >
-            AVAILABLE RIGHT NOW
-          </a>
-        </Magnetic>
+            <Menu size={24} />
+          </button>
+        </div>
       </div>
+
+      <AnimatePresence>
+        {mobileOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="fixed inset-0 z-[60] bg-[#0a0a0a] flex flex-col items-center justify-center"
+          >
+            <button
+              onClick={closeMobile}
+              className="absolute top-6 right-6 p-2 text-white"
+              aria-label="Close menu"
+            >
+              <X size={28} />
+            </button>
+
+            <nav className="flex flex-col items-center gap-8">
+              {links.map((link, i) => (
+                <motion.a
+                  key={link.name}
+                  href={link.href}
+                  onClick={closeMobile}
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: i * 0.1 }}
+                  className="text-4xl font-black uppercase tracking-tighter hover:text-swiss-red transition-colors"
+                >
+                  {link.name}
+                </motion.a>
+              ))}
+            </nav>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.header>
   );
 }
